@@ -1,22 +1,42 @@
-#include <stdio.h>
 #include "binary_trees.h"
+#include <stdio.h>
 
 /**
  * binary_tree_print - Prints a binary tree
  * @tree: Pointer to the root node of the tree to print
- * @level: Level of the node (used for indentation)
  */
-void binary_tree_print(const binary_tree_t *tree, int level)
+void binary_tree_print(const binary_tree_t *tree)
 {
   if (tree == NULL)
     return;
 
-  binary_tree_print(tree->right, level + 1);
+  if (tree->right != NULL)
+    binary_tree_print(tree->right);
 
-  for (int i = 0; i < level; i++)
-    printf("  ");
+  printf("%d", tree->n);
 
-  printf("%d\n", tree->n);
+  if (tree->left != NULL || tree->right != NULL)
+    printf("(");
 
-  binary_tree_print(tree->left, level + 1);
+  if (tree->left != NULL)
+    {
+      binary_tree_print(tree->left);
+    }
+
+  if (tree->left != NULL && tree->right == NULL)
+    printf("()");
+
+  if (tree->left != NULL && tree->right != NULL)
+    printf(", ");
+
+  if (tree->right != NULL)
+    {
+      binary_tree_print(tree->right);
+    }
+
+  if (tree->left != NULL || tree->right != NULL)
+    printf(")");
+
+  if (tree->parent == NULL)
+    printf("\n");
 }
